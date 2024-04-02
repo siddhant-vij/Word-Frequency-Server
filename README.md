@@ -24,9 +24,10 @@ This server is built as a part of the [Load Testing Utility](https://github.com/
 <br>
 
 ## Concurrent Design
-- The server is implemented using `n` goroutines to process the requests concurrently, where n is the input given by the Load Testing Utility for server threads.
+- The server is implemented using `numServerThreads` goroutines to process the requests concurrently - as an input given by the Load Testing Utility for server threads.
 - The server waits for all the goroutines to finish their execution and then, returns the frequency of the word in the text file.
-- The server also handles the boundary-words (edge cases) when concurrently processing the requests.
+- The server implements the Producer-Consumer design pattern with a channel to handle the tasks.
+- Basic throttling is implemented to check for and avoid channel overflow, maintaining a high throughput.
 - This design is used to achieve the Load Testing Utility's requirement to test the server's performance.
 
 <br>
